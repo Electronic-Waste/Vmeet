@@ -1,0 +1,56 @@
+/*.logo {*/
+/*    height: 32px;*/
+/*    margin: 16px;*/
+/*    background: rgba(255, 255, 255, 0.2);*/
+/*}*/
+
+/*.site-layout-sub-header-background {*/
+/*    background: #131c2d;*/
+/*}*/
+
+/*.site-layout-background {*/
+/*    background: #fff;*/
+/*}*/
+/*[data-theme="dark"] .site-layout-sub-header-background {*/
+/*    background: #000000;*/
+/*}*/
+
+.afont-logo{
+    color: white;
+    font-family: YouYuan;
+    margin:0 auto;
+    font-size: 20px;
+}
+
+/*.ant-input-group{*/
+/*    padding: 16px;*/
+/*    width: 400px;*/
+/*}*/
+
+/*.header-search{*/
+/*    float: left;*/
+/*}*/
+
+/*.header-hello{*/
+/*    float: right;*/
+/*    margin-right: 200px;*/
+/*}*/
+
+.site-layout-background{
+    background: #f3f3f3;
+}
+
+.content-friend{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.content-button{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.chatlog{
+    margin-top: 20px;
+}
+

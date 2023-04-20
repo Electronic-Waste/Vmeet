@@ -1,0 +1,20 @@
+#portrait{
+    width:300px;
+    height:200px;
+}
+
+.button{
+    float:right;
+    margin-top:20px;
+}
+.button1{
+    margin-right:10px;
+}
+
+.button2{
+    margin-right:20px;
+}
+
+.username-inputbox{
+    margin-bottom: 10px;
+}

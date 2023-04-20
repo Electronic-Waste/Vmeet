@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GroupServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.backend.serviceimpl</a>
+</div>
+
+<h1>Coverage Summary for Class: GroupServiceImpl (com.example.backend.serviceimpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GroupServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.1%
+  </span>
+  <span class="absValue">
+    (1/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    3.8%
+  </span>
+  <span class="absValue">
+    (1/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.example.backend.serviceimpl;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i class="no-highlight">4</i>&nbsp;import com.example.backend.dao.GroupDao;
+<i class="no-highlight">5</i>&nbsp;import com.example.backend.entity.Group;
+<i class="no-highlight">6</i>&nbsp;import com.example.backend.entity.GroupMember;
+<i class="no-highlight">7</i>&nbsp;import com.example.backend.entity.User;
+<i class="no-highlight">8</i>&nbsp;import com.example.backend.service.GroupService;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;import java.util.List;
+<i class="no-highlight">13</i>&nbsp;import java.util.Map;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;@Service
+<i class="no-highlight">16</i>&nbsp;public class GroupServiceImpl implements GroupService {
+<b class="fc"><i class="no-highlight">17</i>&nbsp;    @Autowired</b>
+<i class="no-highlight">18</i>&nbsp;    GroupDao groupDao;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    @Override
+<i class="no-highlight">21</i>&nbsp;    public int createGroup(JSONObject params) {
+<i class="no-highlight">22</i>&nbsp;        Group group = new Group();
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        group.setGroupName((String) params.get(&quot;groupName&quot;));</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        group.setGroupAdmin((Integer) params.get(&quot;groupAdmin&quot;));</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        group.setGroupDescription((String) params.get(&quot;groupDescription&quot;));</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;        group.setGroupIcon((byte[]) params.get(&quot;groupIcon&quot;));</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;        return groupDao.saveGroup(group);</b>
+<b class="nc"><i class="no-highlight">29</i>&nbsp;    }</b>
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    @Override
+<i class="no-highlight">32</i>&nbsp;    public List&lt;Group&gt; getGroupByUserId(int userId) {
+<i class="no-highlight">33</i>&nbsp;        return groupDao.getGroupByUserId(userId);
+<b class="nc"><i class="no-highlight">34</i>&nbsp;    }</b>
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;    @Override
+<i class="no-highlight">37</i>&nbsp;    public List&lt;User&gt; getGroupMembersByGroupId(int groupId) {
+<i class="no-highlight">38</i>&nbsp;        return groupDao.getGroupMembersByGroupId(groupId);
+<b class="nc"><i class="no-highlight">39</i>&nbsp;    }</b>
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    @Override
+<i class="no-highlight">42</i>&nbsp;    public void addGroupMember(int groupId, int userId) {
+<i class="no-highlight">43</i>&nbsp;        GroupMember groupMember = new GroupMember();
+<b class="nc"><i class="no-highlight">44</i>&nbsp;        groupMember.setGroupId(groupId);</b>
+<i class="no-highlight">45</i>&nbsp;        groupMember.setUserId(userId);
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;        groupDao.saveMember(groupMember);
+<i class="no-highlight">48</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">49</i>&nbsp;</b>
+<i class="no-highlight">50</i>&nbsp;    @Override
+<i class="no-highlight">51</i>&nbsp;    public void deleteGroupMember(int groupId, int userId) {
+<i class="no-highlight">52</i>&nbsp;        groupDao.deleteMember(groupId, userId);
+<i class="no-highlight">53</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">54</i>&nbsp;}</b>
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-09-11 16:15</div>
+</div>
+</body>
+</html>

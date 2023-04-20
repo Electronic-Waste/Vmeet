@@ -1,0 +1,249 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FriendController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.backend.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendController (com.example.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (2/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.4%
+  </span>
+  <span class="absValue">
+    (2/45)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.example.backend.controller;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.example.backend.entity.Friend;
+<i class="no-highlight">4</i>&nbsp;import com.example.backend.entity.Invitation;
+<i class="no-highlight">5</i>&nbsp;import com.example.backend.entity.User;
+<i class="no-highlight">6</i>&nbsp;import com.example.backend.service.FriendService;
+<i class="no-highlight">7</i>&nbsp;import com.example.backend.service.UserService;
+<i class="no-highlight">8</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.http.RequestEntity;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i class="no-highlight">12</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i class="no-highlight">13</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i class="no-highlight">14</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i class="no-highlight">15</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;import java.util.List;
+<i class="no-highlight">18</i>&nbsp;import java.util.Map;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;@Slf4j
+<i class="no-highlight">21</i>&nbsp;@RestController
+<i class="no-highlight">22</i>&nbsp;public class FriendController {
+<b class="fc"><i class="no-highlight">23</i>&nbsp;    @Autowired</b>
+<i class="no-highlight">24</i>&nbsp;    FriendService friendService;
+<b class="fc"><i class="no-highlight">25</i>&nbsp;</b>
+<i class="no-highlight">26</i>&nbsp;    @Autowired
+<i class="no-highlight">27</i>&nbsp;    UserService userService;
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    /**
+<i class="no-highlight">30</i>&nbsp;     * Get User&#39;s friends
+<i class="no-highlight">31</i>&nbsp;     * @param userId User&#39;s id
+<i class="no-highlight">32</i>&nbsp;     * @return  The list of user&#39;s friends: if result is not null; badRequest: else.
+<i class="no-highlight">33</i>&nbsp;     */
+<i class="no-highlight">34</i>&nbsp;    @RequestMapping(&quot;/get-friends&quot;)
+<i class="no-highlight">35</i>&nbsp;    ResponseEntity&lt;?&gt; getFriends(@RequestParam(value = &quot;userId&quot;) int userId) {
+<i class="no-highlight">36</i>&nbsp;        List&lt;User&gt; result = friendService.getFriends(userId);
+<i class="no-highlight">37</i>&nbsp;        System.out.println(result);
+<i class="no-highlight">38</i>&nbsp;        if (result.size() != 0)
+<b class="nc"><i class="no-highlight">39</i>&nbsp;            return ResponseEntity.ok(result);</b>
+<b class="nc"><i class="no-highlight">40</i>&nbsp;        else</b>
+<b class="nc"><i class="no-highlight">41</i>&nbsp;            return ResponseEntity.badRequest().body(&quot;No friends!&quot;);</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;    }</b>
+<i class="no-highlight">43</i>&nbsp;
+<b class="nc"><i class="no-highlight">44</i>&nbsp;    /**</b>
+<i class="no-highlight">45</i>&nbsp;     * Get the key in friend table and set them as roomIds
+<i class="no-highlight">46</i>&nbsp;     * @param userId User&#39;s id
+<i class="no-highlight">47</i>&nbsp;     * @return  List&lt;Friend&gt;: if the result is not null; badRequest: otherwise.
+<i class="no-highlight">48</i>&nbsp;     */
+<i class="no-highlight">49</i>&nbsp;    @RequestMapping(&quot;/get-roomId&quot;)
+<i class="no-highlight">50</i>&nbsp;    ResponseEntity&lt;?&gt; getRoomIdByUserId(@RequestParam(value = &quot;userId&quot;) int userId) {
+<i class="no-highlight">51</i>&nbsp;        List&lt;Friend&gt; result = friendService.getFriendListAsRoomId(userId);
+<i class="no-highlight">52</i>&nbsp;        if (result.size() != 0)
+<i class="no-highlight">53</i>&nbsp;            return ResponseEntity.ok(result);
+<b class="nc"><i class="no-highlight">54</i>&nbsp;        else</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            return ResponseEntity.badRequest().body(&quot;This user does not have friend!&quot;);</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;    }</b>
+<i class="no-highlight">57</i>&nbsp;
+<b class="nc"><i class="no-highlight">58</i>&nbsp;    /**</b>
+<i class="no-highlight">59</i>&nbsp;     * @param userId User&#39;s id (User who sent the request)
+<i class="no-highlight">60</i>&nbsp;     * @param status Invitations&#39; status(0: pending 1: accepted 2: rejected 3: deleted)
+<i class="no-highlight">61</i>&nbsp;     * @return  invitations: if result is not null; badRequest: else.
+<i class="no-highlight">62</i>&nbsp;     */
+<i class="no-highlight">63</i>&nbsp;    @RequestMapping(&quot;/get-sent-invitations&quot;)
+<i class="no-highlight">64</i>&nbsp;    ResponseEntity&lt;?&gt; getSentInvitations(@RequestParam(value = &quot;userId&quot;) int userId, @RequestParam(value = &quot;status&quot;) int status) {
+<i class="no-highlight">65</i>&nbsp;        List&lt;Invitation&gt; result = friendService.getSentInvitations(userId, status);
+<i class="no-highlight">66</i>&nbsp;        if (result.size() != 0)
+<i class="no-highlight">67</i>&nbsp;            return ResponseEntity.ok(result);
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        else</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;            return  ResponseEntity.badRequest().body(&quot;No invitations!&quot;);</b>
+<b class="nc"><i class="no-highlight">70</i>&nbsp;    }</b>
+<i class="no-highlight">71</i>&nbsp;
+<b class="nc"><i class="no-highlight">72</i>&nbsp;    /**</b>
+<i class="no-highlight">73</i>&nbsp;     * @param userId User&#39;s id (User who received the request)
+<i class="no-highlight">74</i>&nbsp;     * @param status Invitations&#39; status(0: pending 1: accepted 2: rejected 3: deleted)
+<i class="no-highlight">75</i>&nbsp;     * @return invitations: if result is not null; badRequest: else.
+<i class="no-highlight">76</i>&nbsp;     */
+<i class="no-highlight">77</i>&nbsp;    @RequestMapping(&quot;/get-received-invitations&quot;)
+<i class="no-highlight">78</i>&nbsp;    ResponseEntity&lt;?&gt; getReceivedInvitations(@RequestParam(value = &quot;userId&quot;) int userId, @RequestParam(value = &quot;status&quot;) int status) {
+<i class="no-highlight">79</i>&nbsp;        List&lt;Invitation&gt; result = friendService.getReceivedInvitations(userId, status);
+<i class="no-highlight">80</i>&nbsp;        if (result.size() != 0)
+<i class="no-highlight">81</i>&nbsp;            return ResponseEntity.ok(result);
+<b class="nc"><i class="no-highlight">82</i>&nbsp;        else</b>
+<b class="nc"><i class="no-highlight">83</i>&nbsp;            return  ResponseEntity.badRequest().body(&quot;No invitations!&quot;);</b>
+<b class="nc"><i class="no-highlight">84</i>&nbsp;    }</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;    /**</b>
+<b class="nc"><i class="no-highlight">87</i>&nbsp;     * Send friend request.</b>
+<b class="nc"><i class="no-highlight">88</i>&nbsp;     * @param params composed of &#39;userId&#39;, &#39;friendId&#39;, &#39;description&#39;.</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;     * @return  ok: friend exists; badRequest: else.</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;     */</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;    @RequestMapping(&quot;/send-friend-request&quot;)</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;    ResponseEntity&lt;?&gt; sendFriendRequest(@RequestBody Map&lt;String, String&gt; params) {</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;        User user = userService.findUserById(Integer.parseInt(params.get(&quot;userId&quot;)));</b>
+<i class="no-highlight">94</i>&nbsp;        // Check if user exists
+<b class="nc"><i class="no-highlight">95</i>&nbsp;        if (user == null)</b>
+<i class="no-highlight">96</i>&nbsp;            return ResponseEntity.badRequest().body(&quot;User doesn&#39;t exist&quot;);
+<i class="no-highlight">97</i>&nbsp;        else {
+<i class="no-highlight">98</i>&nbsp;            friendService.saveInvitation(params);
+<i class="no-highlight">99</i>&nbsp;            return ResponseEntity.ok(&quot;The request is sent!&quot;);
+<i class="no-highlight">100</i>&nbsp;        }
+<i class="no-highlight">101</i>&nbsp;    }
+<i class="no-highlight">102</i>&nbsp;
+<i class="no-highlight">103</i>&nbsp;    /**
+<i class="no-highlight">104</i>&nbsp;     * Accept friend invitation.
+<b class="nc"><i class="no-highlight">105</i>&nbsp;     * @param invitationId  invitation&#39;s id.</b>
+<i class="no-highlight">106</i>&nbsp;     * @return  ok: invitation exists; badRequest: else.
+<b class="nc"><i class="no-highlight">107</i>&nbsp;     */</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;    @RequestMapping(&quot;/accept-invitation&quot;)</b>
+<i class="no-highlight">109</i>&nbsp;    ResponseEntity&lt;?&gt; acceptFriend(@RequestParam(value = &quot;invitationId&quot;) int invitationId) {
+<b class="nc"><i class="no-highlight">110</i>&nbsp;        boolean flag = friendService.acceptInvitation(invitationId);</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;        if (flag) return ResponseEntity.ok(&quot;Accepted!&quot;);</b>
+<i class="no-highlight">112</i>&nbsp;        else return ResponseEntity.badRequest().body(&quot;Invitation not found&quot;);
+<i class="no-highlight">113</i>&nbsp;    }
+<i class="no-highlight">114</i>&nbsp;
+<i class="no-highlight">115</i>&nbsp;    /**
+<i class="no-highlight">116</i>&nbsp;     * Reject friend invitation.
+<i class="no-highlight">117</i>&nbsp;     * @param invitationId invitation&#39;s id.
+<i class="no-highlight">118</i>&nbsp;     * @return  ok: invitation exists; badRequest: else.
+<i class="no-highlight">119</i>&nbsp;     */
+<i class="no-highlight">120</i>&nbsp;    @RequestMapping(&quot;/reject-invitation&quot;)
+<i class="no-highlight">121</i>&nbsp;    ResponseEntity&lt;?&gt; rejectFriend(@RequestParam(value = &quot;invitationId&quot;) int invitationId) {
+<b class="nc"><i class="no-highlight">122</i>&nbsp;        boolean flag = friendService.rejectInvitation(invitationId);</b>
+<b class="nc"><i class="no-highlight">123</i>&nbsp;        if (flag) return ResponseEntity.ok(&quot;Rejected!&quot;);</b>
+<b class="nc"><i class="no-highlight">124</i>&nbsp;        else return ResponseEntity.badRequest().body(&quot;Invitation not found&quot;);</b>
+<i class="no-highlight">125</i>&nbsp;    }
+<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">127</i>&nbsp;    /**
+<i class="no-highlight">128</i>&nbsp;     * Delete friend relationship and corresponding invitation.
+<i class="no-highlight">129</i>&nbsp;     * @param userId User&#39;s id.
+<i class="no-highlight">130</i>&nbsp;     * @param friendId  Friend&#39;s id.
+<i class="no-highlight">131</i>&nbsp;     * @return  ok: if User and Friend exists; badRequest: else.
+<i class="no-highlight">132</i>&nbsp;     */
+<i class="no-highlight">133</i>&nbsp;    @RequestMapping(&quot;delete-friend&quot;)
+<b class="nc"><i class="no-highlight">134</i>&nbsp;    ResponseEntity&lt;?&gt; deleteFriend(@RequestParam(value = &quot;userId&quot;) int userId, @RequestParam(value = &quot;friendId&quot;) int friendId) {</b>
+<b class="nc"><i class="no-highlight">135</i>&nbsp;        User user = userService.findUserById(userId);</b>
+<b class="nc"><i class="no-highlight">136</i>&nbsp;        User friend = userService.findUserById(friendId);</b>
+<i class="no-highlight">137</i>&nbsp;        if (user == null || friend == null)
+<i class="no-highlight">138</i>&nbsp;            return ResponseEntity.badRequest().body(&quot;User or friend does not exist!&quot;);
+<i class="no-highlight">139</i>&nbsp;        else {
+<i class="no-highlight">140</i>&nbsp;            friendService.deleteFriend(userId, friendId);
+<i class="no-highlight">141</i>&nbsp;            return ResponseEntity.ok(&quot;Done!&quot;);
+<i class="no-highlight">142</i>&nbsp;        }
+<i class="no-highlight">143</i>&nbsp;    }
+<i class="no-highlight">144</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-09-11 16:15</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+.header-logo {
+    float: left;
+    font-size: 40px;
+    color: white;
+    margin-left: -20px;
+    margin-top: 12px;
+}
+
+.header-logo-text {
+    float: left;
+    color: white;
+    cursor: pointer;
+}
+
+.header-menu {
+    margin-left: 60%;
+}
+
+.header-search {
+    float: left;
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 12px;
+}
+
+.header-username {
+    float: right;
+    color: lightgray;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.header-avatar {
+    float: right;
+    cursor: pointer;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+
+.chat-sidebar-logo {
+    float: left;
+    font-size: 40px;
+    color: white;
+    margin: 10px 2px 10px 20px;
+}
+
+.chat-sidebar-logo-name {
+    float: left;
+    color: white;
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+.bar6 {background: #F9F0DA;}
+.bar6 input {
+    border: 2px solid #c5464a;
+    border-radius: 5px;
+    background: transparent;
+    top: 0;
+    right: 0;
+}
+.bar6 button {
+    background: #c5464a;
+    border-radius: 0 5px 5px 0;
+    width: 60px;
+    top: 0;
+    right: 0;
+}
+.bar6 button:before {
+    content: "搜索";
+    font-size: 13px;
+    color: #F9F0DA;
+}

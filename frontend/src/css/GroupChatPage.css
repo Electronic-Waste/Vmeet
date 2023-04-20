@@ -1,0 +1,8 @@
+.player {
+    width: 25%;
+    height: 320px;
+}
+
+.player-name {
+    margin: 8px 0;
+}

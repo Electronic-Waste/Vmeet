@@ -1,0 +1,46 @@
+video .input_video {
+    max-width: 100px;
+    height: auto;
+    transform: scale(-1, 1);
+    /*display: none;*/
+}
+
+.preview {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    overflow: hidden;
+    border-radius: 8px;
+    /*background: #222;*/
+}
+
+.one-one-video-area {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#local_video {
+    box-shadow: 3px 3px 3px 3px gray;
+    /*display: block;*/
+}
+
+#remote_video {
+    box-shadow: 3px 3px 3px 3px gray;
+    /*display: block;*/
+}
+
+.one-one-video-remote {
+    margin-top: 50px;
+}
+
+#live2d{
+    /*height: 300px;*/
+    /*float: left;*/
+    height: 320px;
+    width: 480px;
+    /*margin-right: 50px;*/
+    box-shadow: 3px 3px 3px 3px gray;
+}
+

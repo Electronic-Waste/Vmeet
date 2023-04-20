@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FriendServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.backend.serviceimpl</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendServiceImpl (com.example.backend.serviceimpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    2.8%
+  </span>
+  <span class="absValue">
+    (1/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.example.backend.serviceimpl;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.example.backend.dao.FriendDao;
+<i class="no-highlight">4</i>&nbsp;import com.example.backend.entity.Friend;
+<i class="no-highlight">5</i>&nbsp;import com.example.backend.entity.Invitation;
+<i class="no-highlight">6</i>&nbsp;import com.example.backend.entity.User;
+<i class="no-highlight">7</i>&nbsp;import com.example.backend.service.FriendService;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.data.repository.config.CustomRepositoryImplementationDetector;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;import javax.persistence.EntityNotFoundException;
+<i class="no-highlight">13</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">14</i>&nbsp;import java.util.List;
+<i class="no-highlight">15</i>&nbsp;import java.util.Map;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;@Service
+<b class="fc"><i class="no-highlight">18</i>&nbsp;public class FriendServiceImpl implements FriendService {</b>
+<i class="no-highlight">19</i>&nbsp;    @Autowired
+<i class="no-highlight">20</i>&nbsp;    FriendDao friendDao;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    @Override
+<i class="no-highlight">23</i>&nbsp;    public List&lt;User&gt; getFriends(int userId) {
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        return friendDao.getFriendsInfo(userId);</b>
+<i class="no-highlight">25</i>&nbsp;    }
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;    @Override
+<i class="no-highlight">28</i>&nbsp;    public List&lt;Friend&gt; getFriendListAsRoomId(int userId) {
+<b class="nc"><i class="no-highlight">29</i>&nbsp;       return friendDao.getFriendsListAsRoomId(userId);</b>
+<i class="no-highlight">30</i>&nbsp;    }
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;    @Override
+<i class="no-highlight">33</i>&nbsp;    public List&lt;Invitation&gt; getSentInvitations(int userId, int status) {
+<b class="nc"><i class="no-highlight">34</i>&nbsp;        return friendDao.getSentInvitations(userId, status);</b>
+<i class="no-highlight">35</i>&nbsp;    }
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    @Override
+<i class="no-highlight">38</i>&nbsp;    public List&lt;Invitation&gt; getReceivedInvitations(int friendId, int status) {
+<b class="nc"><i class="no-highlight">39</i>&nbsp;        return friendDao.getReceivedInvitations(friendId, status);</b>
+<i class="no-highlight">40</i>&nbsp;    }
+<i class="no-highlight">41</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;    @Override
+<i class="no-highlight">43</i>&nbsp;    public boolean acceptInvitation(int invitationId) {
+<i class="no-highlight">44</i>&nbsp;        try {
+<i class="no-highlight">45</i>&nbsp;            /* Get invitation */
+<b class="nc"><i class="no-highlight">46</i>&nbsp;            Invitation invitation = friendDao.getInvitation(invitationId);</b>
+<i class="no-highlight">47</i>&nbsp;            /* Update invitation */
+<b class="nc"><i class="no-highlight">48</i>&nbsp;            invitation.setStatus(1);            // accept state</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;            friendDao.saveInvitation(invitation);</b>
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;            /* Update friend */
+<b class="nc"><i class="no-highlight">52</i>&nbsp;            Friend friend = new Friend();</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;            friend.setUserId(invitation.getUserId());</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;            friend.setFriendId(invitation.getFriendId());</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            friendDao.saveFriend(friend);</b>
+<i class="no-highlight">56</i>&nbsp;
+<i class="no-highlight">57</i>&nbsp;            /* Update inverse friend */
+<i class="no-highlight">58</i>&nbsp;//            Friend inv_friend = new Friend();
+<i class="no-highlight">59</i>&nbsp;//            inv_friend.setUserId(invitation.getFriendId());
+<i class="no-highlight">60</i>&nbsp;//            inv_friend.setFriendId(invitation.getUserId());
+<i class="no-highlight">61</i>&nbsp;//            friendDao.saveFriend(inv_friend);
+<i class="no-highlight">62</i>&nbsp;
+<b class="nc"><i class="no-highlight">63</i>&nbsp;            return true;</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        } catch (EntityNotFoundException e) {</b>
+<b class="nc"><i class="no-highlight">65</i>&nbsp;            return false;</b>
+<i class="no-highlight">66</i>&nbsp;        }
+<i class="no-highlight">67</i>&nbsp;    }
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    @Override
+<i class="no-highlight">70</i>&nbsp;    public boolean rejectInvitation(int invitationId) {
+<i class="no-highlight">71</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">72</i>&nbsp;            Invitation invitation = friendDao.getInvitation(invitationId);</b>
+<b class="nc"><i class="no-highlight">73</i>&nbsp;            invitation.setStatus(2);            // reject state</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;            friendDao.saveInvitation(invitation);</b>
+<b class="nc"><i class="no-highlight">75</i>&nbsp;            return true;</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        } catch (EntityNotFoundException e) {</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;            return false;</b>
+<i class="no-highlight">78</i>&nbsp;        }
+<i class="no-highlight">79</i>&nbsp;    }
+<i class="no-highlight">80</i>&nbsp;
+<i class="no-highlight">81</i>&nbsp;    @Override
+<i class="no-highlight">82</i>&nbsp;    public int saveFriend(Map&lt;String, String&gt; params) {
+<b class="nc"><i class="no-highlight">83</i>&nbsp;        Friend friend = new Friend();</b>
+<b class="nc"><i class="no-highlight">84</i>&nbsp;        friend.setUserId(Integer.parseInt(params.get(&quot;userId&quot;)));</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        friend.setFriendId(Integer.parseInt(params.get(&quot;friendId&quot;)));</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;        return friendDao.saveFriend(friend);</b>
+<i class="no-highlight">87</i>&nbsp;    }
+<i class="no-highlight">88</i>&nbsp;
+<i class="no-highlight">89</i>&nbsp;    @Override
+<i class="no-highlight">90</i>&nbsp;    public void deleteFriend(int userId, int friendId) {
+<i class="no-highlight">91</i>&nbsp;        /* Delete friend */
+<b class="nc"><i class="no-highlight">92</i>&nbsp;        Friend friend = friendDao.getFriend(userId, friendId);</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;        friendDao.deleteFriend(friend.getId());</b>
+<i class="no-highlight">94</i>&nbsp;
+<i class="no-highlight">95</i>&nbsp;        /* Update corresponding invitation */
+<b class="nc"><i class="no-highlight">96</i>&nbsp;        Invitation invitation = friendDao.getInvitationByUserIdAndFriendIdAndStatus(userId, friendId, 1);   // 1: accepted</b>
+<b class="nc"><i class="no-highlight">97</i>&nbsp;        invitation.setStatus(3);    // 3: deleted</b>
+<b class="nc"><i class="no-highlight">98</i>&nbsp;        friendDao.saveInvitation(invitation);</b>
+<i class="no-highlight">99</i>&nbsp;    }
+<i class="no-highlight">100</i>&nbsp;
+<i class="no-highlight">101</i>&nbsp;    @Override
+<i class="no-highlight">102</i>&nbsp;    public int saveInvitation(Map&lt;String, String&gt; params) {
+<b class="nc"><i class="no-highlight">103</i>&nbsp;        Invitation invitation = new Invitation();</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;        invitation.setUserId(Integer.parseInt(params.get(&quot;userId&quot;)));</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;        invitation.setFriendId(Integer.parseInt(params.get(&quot;friendId&quot;)));</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;        invitation.setDescription(params.get(&quot;description&quot;));</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;        invitation.setStatus(0);</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;        return friendDao.saveInvitation(invitation);</b>
+<i class="no-highlight">109</i>&nbsp;    }
+<i class="no-highlight">110</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-09-11 16:15</div>
+</div>
+</body>
+</html>
